@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zahlenraten</title>
+  </head>
+  <body>
+    <script>
+      var x = Math.round((Math.random() * 49) + 1);
+      var vers = 1;
+      var eing;
+      var versanz = 0;
+      var ausg;
+      function raten() {
+        eing = document.getElementById("eingabe").value;
+        if (eing == x) {
+          versanz++;
+          ausg = "Hurra, du hast Gewonnen!";
+          document.getElementById("Absch").innerHTML = "<button href=\"\">Nochmal spielen</button>";
+        }
+        else if (eing < 1 || eing > 50) {
+          ausg = "Die gesuchte Zahl liegt zwischen 1 und 50!";
+        }
+        else if (eing < x) {
+          ausg = "Die gesuchte Zahl ist groesser";
+          end();
+        }
+        else if (eing > x) {
+          ausg = "Die gesuchte Zahl ist kleiner";
+          end();
+        }
+        else {
+          ausg = "Du hast keine Zahl eingeben";
+        }
+        document.getElementById("eing").innerHTML = "Deine eingabe: " + eing;
+        document.getElementById("ausg").innerHTML = ausg;
+        document.getElementById("vers").innerHTML = "Du hast " + versanz + "/5 Versuchen verbraucht";
+      }
+      function end() {
+        versanz = vers;
+        vers++;
+        if (vers == 6) {
+          ausg = "Leider Verloren, du hast deine 5 Versuche aufgebraucht! Die gesuchte Zahl war " + x + "! <a href=\"\">Erneut versuchen<a/>";
+          document.getElementById("Absch").innerHTML = x;
+        }
+        if (x % 2 > 0 && vers != 6) {
+          ausg = ausg + " und ungerade";
+        }
+        else if (x % 2 < 1 && vers != 6) {
+          ausg = ausg + " und gerade";
+        }
+      }
+    </script>
+    <h2>Zahlenraten</h2>
+    <p id="eing"></p>
+    <p id="ausg">Bitte eine Zahl eingeben</p>
+    <p id="vers"></p>
+    <div id="Absch" onkeyup="inputKeyup(event)" name="Absch">
+      <input type="number" name="eingabe" id="eingabe" placeholder="Bitte eine Zahl eingeben">
+      <button onclick="raten()" id="lock">Raten</button>
+    </div>
+    <script>
+      function inputKeyup(e) {
+        e.which = e.which || e.keyCode;
+        if (e.which == 13) {
+          raten();
+        }
+      }
+    </script>
+  </body>
+</html>
